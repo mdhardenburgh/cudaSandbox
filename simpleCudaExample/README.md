@@ -70,7 +70,7 @@ or
 `$ ./armCudaAdd`
 
 To profile it:
-`$ nvprof ./cudaAdd`
+`$ /usr/local/cuda-11.0/bin/nvprof ./cudaAdd`
 or
 `$ /usr/local/cuda-10.2/bin/nvprof ./armCudaAdd`
 
