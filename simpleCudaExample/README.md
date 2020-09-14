@@ -26,6 +26,7 @@ with a few modifications to work on the Jetson Nano.
 * `blockIdx.x` Is the ID of the current block
 * `gridDim.x` Is number of blocks in the current grid
 
+### CUDA Indexing. Source Nvida, "An Even Easier Introduction to CUDA"
 ![CUDA Indexing. Source Nvida, "An Even Easier Introduction to CUDA"](cuda_indexing.png)
 
 ## Grid Stride Loops Explained
@@ -61,15 +62,18 @@ To compile this example:
 `$ sudo /usr/local/cuda-11.0/bin/nvcc add.cu -g -o cudaAdd` 
 
 To cross compile for the Jetson Nano:
-`& sudo /usr/local/cuda-10.2/bin/nvcc add.cu -g -o cudaAdd --compiler-bindir ~/gcc-linaro-7.3.1-2018.05-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-g++`
+`$ sudo /usr/local/cuda-10.2/bin/nvcc add.cu -g -o armCudaAdd --compiler-bindir ~/gcc-linaro-7.3.1-2018.05-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-g++`
 
 To run it:
-`& ./cudaAdd`
+`$ ./cudaAdd`
+or
+`$ ./armCudaAdd`
 
 To profile it:
-`nvprof ./cudaAdd`
+`$ nvprof ./cudaAdd`
+or
+`$ /usr/local/cuda-10.2/bin/nvprof ./armCudaAdd`
 
 ## Simple Speed Metrics
-
-Time to run on my laptop's Nvidia 960m: 
-Time to run on my Jetson Nano: 
+Time to run on my laptop's Nvidia 960m 175.81us
+Time to run on my Jetson Nano is 2.561ms

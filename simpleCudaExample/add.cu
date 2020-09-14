@@ -41,39 +41,30 @@
  * times.
  */
 __global__ 
-void add(int n, float *x, float *y, uint32_t* threadsInGrid)
+void add(int n, float *x, float *y)
 {
   uint32_t currentThreadId = threadIdx.x + (blockDim.x * blockIdx.x);
   uint32_t numThreadsInGrid = blockDim.x * gridDim.x;
-  *threadsInGrid = numThreadsInGrid;
-  uint32_t i = currentThreadId;
-
-  printf("numThreadsInGrid: %d \n", numThreadsInGrid);
-  printf("currentThreadId: %d \n", currentThreadId);
 
   for (uint32_t i = currentThreadId; i < n; i += numThreadsInGrid)
   {
     y[i] = x[i] + y[i];
   }
-
-  // y[i] = x[i] + y[i];
       
 }
 
 int main(void)
 {
-  uint32_t N = 1<<20; // 1M elements
+  int N = 1<<20; // 1M elements
   // uint32_t N = 1064123;
 
   //To allocate data in unified memory, call cudaMallocManaged()
   //To free the data, just pass the pointer to cudaFree()
   float* x;
   float* y;
-  uint32_t* threadsInGrid;
 
   cudaMallocManaged(&x, N*sizeof(float));
   cudaMallocManaged(&y, N*sizeof(float));
-  cudaMallocManaged(&threadsInGrid, sizeof(uint32_t));
 
   // initialize x and y arrays on the host
   for (int i = 0; i < N; i++) 
@@ -86,14 +77,10 @@ int main(void)
   uint32_t numBlocks = (N + blockSize - 1)/blockSize;
 
   // Run kernel on 1M elements on the CPU
-  //This is called the execution configuration
-  std::cout<<"numBlocks: "<<numBlocks<<std::endl;
-  std::cout<<"Number of total calculated theads: "<<numBlocks*blockSize<<std::endl;
-  add<<<numBlocks, blockSize>>>(N, x, y, threadsInGrid);
+  add<<<numBlocks, blockSize>>>(N, x, y);
 
   // Wait for GPU to finish before accessing on host
   cudaDeviceSynchronize();
-  std::cout<<"Number of theads in grid: "<<*threadsInGrid<<std::endl;
 
   // Check for errors (all values should be 3.0f)
   float maxError = 0.0f;
@@ -105,7 +92,6 @@ int main(void)
   // To free the data, just pass the pointer to cudaFree()
   cudaFree(x);
   cudaFree(y);
-  cudaFree(threadsInGrid);
 
   return 0;
 }
