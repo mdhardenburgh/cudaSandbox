@@ -41,7 +41,8 @@ For the [quick linux install guide](https://docs.nvidia.com/cuda/cuda-quick-star
 For the [full linux install guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
 
 ## Install CUDA Cross Compiler for Jetson ARM based Devices
-This was obnoxiously difficult and not explained well. [Under section 5 of the install guide documentation for Linux](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#cross-platform) it says to "Install repository meta-data package with: `$ sudo dpkg -i cuda-repo-cross-<identifier>_all.deb`".
+This was obnoxiously difficult and not explained well in official documentation. 
+[Under section 5 of the install guide documentation for Linux](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#cross-platform) it says to "Install repository meta-data package with: `$ sudo dpkg -i cuda-repo-cross-<identifier>_all.deb`".
 I have scoured the internet and could not find any such package with reaonable 
 effort. In my opinion, ignore that section of the install guide for installing 
 the cross compiler.
