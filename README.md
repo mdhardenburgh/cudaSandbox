@@ -41,11 +41,35 @@ For the [quick linux install guide](https://docs.nvidia.com/cuda/cuda-quick-star
 For the [full linux install guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
 
 ## Install CUDA Cross Compiler for Jetson ARM based Devices
-This was obnoxiously difficult and not explained well in official documentation. 
-[Under section 5 of the install guide documentation for Linux](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#cross-platform) it says to "Install repository meta-data package with: `$ sudo dpkg -i cuda-repo-cross-<identifier>_all.deb`".
-I have scoured the internet and could not find any such package with reaonable 
+These instructions are for the Jetson Nano, but the process is probably similar
+for other Jetson devices.
+
+The latest version of CUDA that the Jetson Nano supports is CUDA 10.2. This needs to
+be installed on the host device and the jetson. The offical way to do this is with
+the [Jetson Jetpack SDK manager](https://developer.nvidia.com/nvidia-sdk-manager).
+The SDK manager will automatically download and install the correct version of CUDA
+for both the host and jetson, and the option to download and install any debugging
+or profiling tools. 
+
+Next is to install the arm-gcc cross compiler if it is not installed already. 
+In the [Jetson Download Center](https://developer.nvidia.com/embedded/downloads#?tx=$product,jetson_nano)
+go to the [Linux for Tegra driver Package (L4T) Release Page](https://developer.nvidia.com/embedded/linux-tegra-r3271). 
+Next scroll down to the tools section and download the GCC 7.3.1 for 64 bit BSP 
+and Kernel tarbal.
+
+### Custom Install
+Firstly, install the 
+
+[Under section 5 of the install guide documentation for Linux](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#cross-platform) 
+It says to "Install repository meta-data package with: `$ sudo dpkg -i cuda-repo-cross-<identifier>_all.deb`".
+~~I have scoured the internet and could not find any such package with reaonable 
 effort. In my opinion, ignore that section of the install guide for installing 
-the cross compiler.
+the cross compiler.~~ I discovered that this package is downloaded and installed 
+by the Nvidia Jetson SDK manager. 
+
+I found the source of where the debian packages can be downloaded. 
+The nvidia download server is located [here](https://repo.download.nvidia.com/jetson/)
+The nvidia SDK manager page that contains the link to the download server is located [here](https://docs.nvidia.com/jetson/jetpack/install-jetpack/index.html#package-management-tool)
 
 The easiest way, in my experience, to install the cross compiler is to download 
 and install the [NVidia Jetson SDK Manager](https://developer.nvidia.com/nvsdk-manager).
